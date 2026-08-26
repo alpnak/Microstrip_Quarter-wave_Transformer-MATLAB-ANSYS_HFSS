@@ -1,6 +1,6 @@
-# Microstrip Quarter-Wave Impedance Transformer
+# Microstrip Quarter-Wave Impedance Transformer Design and Analysis with MATLAB & ANSYS HFSS
 
-Design, theoretical analysis, and full-wave EM simulation of a microstrip quarter-wave impedance transformer matching a 90 Ω load to a 50 Ω source at a 2 GHz center frequency, developed for the ELE 331 – Electromagnetic Field Theory course project (TOBB University of Economics and Technology, 2024–2025 Summer Term).
+Design, theoretical analysis, and full-wave EM simulation of a microstrip quarter-wave impedance transformer matching a 90 Ω load to a 50 Ω source at a 2 GHz center frequency, developed for the Electromagnetic Field Theory project.
 
 ## Overview
 
@@ -61,14 +61,6 @@ Both analytical and simulated results confirm that the transformer achieves a we
 - Distributed R, L, G, C are derived from skin-effect surface resistance, Z₀, and phase velocity, and combined into a complex propagation constant γ = α + jβ.
 - The input impedance looking into the terminated line, Z_in(f), is swept over 1–3 GHz to compute |Γ(f)| = |(Z_in − Z_s)/(Z_in + Z_s)|, verifying narrowband matching around 2 GHz.
 - The same geometry is reproduced in HFSS with wave ports (chosen over lumped ports for reliable modal propagation-parameter extraction), and S-parameter sweeps are compared against the MATLAB predictions.
-
-## Authors
-
-- Alperen Nakiboğlu — 211201062
-- Enis Hacışevki — 211201058
-
-TOBB University of Economics and Technology, Department of Electrical and Electronics Engineering
-ELE 331 – Electromagnetic Field Theory, Summer 2024–2025
 
 ## References
 
