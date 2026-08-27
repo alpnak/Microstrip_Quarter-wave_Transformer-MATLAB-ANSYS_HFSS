@@ -1,4 +1,4 @@
-# Microstrip Quarter-Wave Impedance Transformer
+# Microstrip Quarter-Wave Impedance Transformer Design and Analysis with MATLAB & ANSYS HFSS
 
 Design, theoretical analysis, and full-wave EM simulation of a simple and widely used impedance-matching technique in RF/microwave circuit design, microstrip quarter-wave impedance transformer (QWT) matching a 90 Ω load to a 50 Ω source at a 2 GHz center frequency, developed for the Electromagnetic Field Theory project.
 
@@ -22,6 +22,22 @@ The project was carried out in two stages.
 - l. Confirm that the reflection coefficient magnitude at 2 GHz does not exceed 0.1 (i.e., S₁₁ < −20 dB).
 
 The full assignment specification is included as [`ELE331_proje_202425.pdf`](./ELE331_proje_202425.pdf), and the complete write-up with derivations and results is included as [`alperen-enis_mikroserit.pdf`](./alperen-enis_mikroserit.pdf).
+
+## Design Specifications
+
+Microstrip mpdel
+![Micostrip model](mikroserit.png)
+
+| Parameter | Value |
+|---|---|
+| Center frequency | 2 GHz |
+| Source impedance (Z_s) | 50 Ω |
+| Load impedance (Z_l) | 90 Ω |
+| Substrate | Polyethylene (ε_r = 2.4, σ = 0) |
+| Substrate height (h) | 600 µm |
+| Conductor | Copper (σ = 5.8×10⁷ S/m) |
+| Conductor thickness | 17 µm |
+| Simulation band | 1–3 GHz (step < 0.1 GHz) |
 
 ## Overview
 
@@ -75,6 +91,10 @@ l = λ_eff / 4
 
 where *β = Im(γ)* is the phase constant and *α = Re(γ)* is the attenuation constant.
 
+Distributed model of the microstrip
+
+![Equivalent model](esdeger.png)
+
 **Distributed model (R, L, G, C).** The per-unit-length line parameters are computed as:
 
 ```
@@ -99,22 +119,25 @@ Z_in(f) = Z₀ · (Z_l + Z₀·tanh(γl)) / (Z₀ + Z_l·tanh(γl))
 
 Sweeping *f* over [1, 3] GHz and evaluating |Γ(f)| verifies the narrowband matching behavior expected of a quarter-wave transformer: |Γ| falls to (near) zero at 2 GHz and rises away from it.
 
+Microstrip quarter-wave impedance transformer schematic view
+
+![2D schematic view](2B_ilteim_hatti_semasi.png)
+
 **HFSS validation.** The same geometry (copper strip and ground plane over a polyethylene substrate, dimensions from the theoretical design) is modeled in ANSYS HFSS with wave ports at each end — wave ports are used instead of lumped ports because they support full modal solutions, needed to extract *Z₀*, *ε_eff*, *β*, and *α* directly from the simulated propagating mode, rather than only a local impedance value. Port 1 (source side) is set to 50 Ω and Port 2 (load side) to 90 Ω. A frequency sweep over [1, 3] GHz with a step under 0.1 GHz yields S₁₁ and S₂₁, which are compared directly against the MATLAB-predicted |Γ(f)|.
 
-## Design Specifications
+Quarter-wave impedance transsformer design in ANSYS HFSS
 
-| Parameter | Value |
-|---|---|
-| Center frequency | 2 GHz |
-| Source impedance (Z_s) | 50 Ω |
-| Load impedance (Z_l) | 90 Ω |
-| Substrate | Polyethylene (ε_r = 2.4, σ = 0) |
-| Substrate height (h) | 600 µm |
-| Conductor | Copper (σ = 5.8×10⁷ S/m) |
-| Conductor thickness | 17 µm |
-| Simulation band | 1–3 GHz (step < 0.1 GHz) |
+![Quarter-wave transformer design](QMT_tasarim.png)
 
 ## Key Results
+
+Reflection coefficient-frequency graph in linear scale
+
+![Gamma-frequency graph](gamma-frekans_grafik-dogrusal.png)
+
+Reflection coefficient-frequency graph in log scale
+
+![Gamma-frequency graph](gamma-frekans_grafik-log.png)
 
 | Quantity | Theoretical (MATLAB) | HFSS Simulation |
 |---|---|---|
@@ -133,64 +156,20 @@ Sweeping *f* over [1, 3] GHz and evaluating |Γ(f)| verifies the narrowband matc
 | \|S₂₁\| @ ~2 GHz | — (not modeled analytically) | −0.0064 dB @ 1.98 GHz |
 | Band where \|Γ\| < 0.1 (i.e., S₁₁ < −20 dB) | ~[1.65, 2.35] GHz | comparable band (see comparison plot) |
 
+Characteristic impedance-frequency graph
+
+![Z0-frequency graph](Z0-frekans_grafik.png)
+
+S11 parameter-frequency graph
+
+![S11-frequency graph](S11-frekans_grafik.png)
+
+S21 parameter-frequency graph
+
+![S21-frequency graph](S21-frekans_grafik.png)
+
+MATLAB and ANSYS HFSS comparison of gamma-frequency graph
+
+![Gamma-frequency graph MATLAB and ANSYS HFSS compasrison](karsilastirma.png)
+
 Both the analytical (MATLAB) and full-wave (HFSS) results confirm that the transformer is well matched at the 2 GHz design frequency, with the reflection coefficient far below the |Γ| < 0.1 (S₁₁ < −20 dB) requirement, and close agreement between the two methods across the full [1, 3] GHz band.
-
-<!--
-Figures from the report to include here, each with a short caption:
-
-1. 3D schematic of the microstrip structure (strip / dielectric / ground plane, with W, h, l labeled)
-   → place at the top of "Overview" or "Design Specifications"
-
-2. Equivalent circuit schematic (series R, L; shunt C, G)
-   → place in "Overview", alongside the distributed-model equations
-
-3. 2D transmission-line schematic (Z_in, Z_0, Z_l, l labeled)
-   → place at the end of the theoretical part of "Overview"
-
-4. |Γ| vs. frequency, linear scale (MATLAB)
-   → place in "Key Results"
-
-5. |Γ| vs. frequency, dB scale (MATLAB)
-   → place in "Key Results"
-
-6. HFSS 3D model of the transformer (with ports)
-   → place in "Key Results", at the start of the HFSS-related figures
-
-7. HFSS Z0 vs. frequency plot
-   → place in "Key Results"
-
-8. HFSS S11 (dB) vs. frequency plot
-   → place in "Key Results"
-
-9. HFSS S21 (dB) vs. frequency plot
-   → place in "Key Results"
-
-10. MATLAB vs. HFSS |Γ| (S11, dB) comparison plot
-    → place in "Key Results", as the closing/summary figure
--->
-
-## Repository Contents
-
-```
-.
-├── mikroserit.m                     # MATLAB script: line design, Z0/ε_eff/β/α, R/L/G/C, |Γ| vs. frequency
-├── dalga.aedt                       # ANSYS HFSS project file (3D EM model, ports, frequency sweep)
-├── ELE331_proje_202425.pdf          # Original project assignment/specification
-├── alperen-enis_mikroserit.pdf      # Full project report (design, derivations, HFSS results, conclusions)
-└── README.md
-```
-
-## Authors
-
-- Alperen Nakiboğlu — 211201062
-- Enis Hacışevki — 211201058
-
-TOBB University of Economics and Technology, Department of Electrical and Electronics Engineering
-ELE 331 – Electromagnetic Field Theory, Summer 2024–2025
-
-## References
-
-1. D. M. Pozar, *Microwave Engineering*, 3rd ed., John Wiley & Sons, 2009, Ch. 3, p. 143.
-2. D. M. Pozar, *Microwave Engineering*, 3rd ed., John Wiley & Sons, 2009, Ch. 4, p. 174.
-3. Ansys Academic Resource Center, "HFSS Getting Started: LE6 Port Basics," 2020.
-4. [ANSYS Electronics Desktop Student Edition](https://www.ansys.com/academic/students/ansys-electronics-desktop-student)
