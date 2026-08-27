@@ -47,7 +47,7 @@ Zₒ = √(Zₛ · Zₗ)
 
 and physical length equal to one quarter of the guided wavelength at the design frequency, *l = λₑբբ / 4*. At the design frequency this length rotates the load impedance around the Smith chart by 90°, presenting a purely resistive input impedance equal to *Zₒ* and, in turn, equal to *Zₛ* — eliminating reflections at that single frequency.
 
-**Line width.** For a microstrip line on a substrate of relative permittivity *εᵣ* and height *h*, the width-to-height ratio *W/h* is found from Pozar's synthesis equations, which take one of two forms depending on whether the resulting ratio is below or above 2:
+**Line width**: For a microstrip line on a substrate of relative permittivity *εᵣ* and height *h*, the width-to-height ratio *W/h* is found from Pozar's synthesis equations, which take one of two forms depending on whether the resulting ratio is below or above 2:
 
 ```
 W/h = 8·eᴬ / (e²ᴬ − 2)                                                                 for W/h < 2
@@ -65,7 +65,7 @@ B = 377π / (2·Zₒ·√εᵣ)
 
 Both cases are evaluated numerically and the applicable one (based on the resulting *W/h*) is selected to obtain *W = (W/h)·h*.
 
-**Effective dielectric constant and phase velocity.** Because the field is partly in the dielectric and partly in air above the strip, an effective permittivity is used instead of *εᵣ*:
+**Effective dielectric constant and phase velocity**: Because the field is partly in the dielectric and partly in air above the strip, an effective permittivity is used instead of *εᵣ*:
 
 ```
 εₑբբ = (εᵣ + 1)/2 + (εᵣ − 1) / (2·√(1 + 12h/W))
@@ -81,22 +81,22 @@ vₚ = c / √εₑբբ
 l = λₑբբ / 4
 ```
 
-**Propagation constant.** The complex propagation constant *γ = α + jβ* is obtained from the per-unit-length distributed parameters:
+**Propagation constant**: The complex propagation constant *γ = α + jβ* is obtained from the per-unit-length distributed parameters:
 
 ```
 γ = √[(R + jωL)·(G + jωC)]
 ```
 
-where *β = Im(γ)* is the phase constant and *α = Re(γ)* is the attenuation constant.
+where *β = Im(γ)* is the phase constant and found as 58.5530028701 rad/m, *α = Re(γ)* is the attenuation constant and found as 7.9671426160e-02 Np/m.
+
+**Distributed model (R, L, G, C)**: The per-unit-length line parameters are computed as:
 
 Distributed model of the microstrip
 
 ![Equivalent model](esdeger.png)
 
-**Distributed model (R, L, G, C).** The per-unit-length line parameters are computed as:
-
 ```
-R = R_s / W,          R_s = √(ω·μ₀ / (2σ_c))     (conductor surface resistance, skin effect)
+R = Rₛ / W,          Rₛ = √(ω·μ₀ / (2σ_c))     (conductor surface resistance, skin effect)
 
 L = Zₒ / vₚ
 
@@ -107,7 +107,11 @@ C = 1 / (vₚ · Zₒ)
 
 These form the equivalent circuit model of the microstrip line (series *R*, *L*; shunt *G*, *C*), used both to recompute *γ* and to evaluate the frequency response.
 
-**Reflection coefficient across the band.** With *Zₒ*, *γ*, and *l* known, the input impedance looking into the line terminated in *Zₗ*, and the resulting reflection coefficient seen by the source, are:
+**Reflection coefficient across the band**: With *Zₒ*, *γ*, and *l* known, the input impedance looking into the line terminated in *Zₗ*, and the resulting reflection coefficient seen by the source, are:
+
+Microstrip quarter-wave impedance transformer schematic view
+
+![2D schematic view](2B_ilteim_hatti_semasi.png)
 
 ```
 Z_in(f) = Zₒ · (Zₗ + Zₒ·tanh(γl)) / (Zₒ + Zₗ·tanh(γl))
@@ -117,18 +121,6 @@ Z_in(f) = Zₒ · (Zₗ + Zₒ·tanh(γl)) / (Zₒ + Zₗ·tanh(γl))
 
 Sweeping *f* over [1, 3] GHz and evaluating |Γ(f)| verifies the narrowband matching behavior expected of a quarter-wave transformer: |Γ| falls to (near) zero at 2 GHz and rises away from it.
 
-Microstrip quarter-wave impedance transformer schematic view
-
-![2D schematic view](2B_ilteim_hatti_semasi.png)
-
-**HFSS validation.** The same geometry (copper strip and ground plane over a polyethylene substrate, dimensions from the theoretical design) is modeled in ANSYS HFSS with wave ports at each end — wave ports are used instead of lumped ports because they support full modal solutions, needed to extract *Zₒ*, *εₑբբ*, *β*, and *α* directly from the simulated propagating mode, rather than only a local impedance value. Port 1 (source side) is set to 50 Ω and Port 2 (load side) to 90 Ω. A frequency sweep over [1, 3] GHz with a step under 0.1 GHz yields S₁₁ and S₂₁, which are compared directly against the MATLAB-predicted |Γ(f)|.
-
-Quarter-wave impedance transsformer design in ANSYS HFSS
-
-![Quarter-wave transformer design](QWT_tasarim.png)
-
-## Results
-
 Reflection coefficient-frequency graph in linear scale
 
 ![Gamma-frequency graph](gamma-frekans_grafik-dogrusal.png)
@@ -136,6 +128,14 @@ Reflection coefficient-frequency graph in linear scale
 Reflection coefficient-frequency graph in log scale
 
 ![Gamma-frequency graph](gamma-frekans_grafik-log.png)
+
+**HFSS validation**: The same geometry (copper strip and ground plane over a polyethylene substrate, dimensions from the theoretical design) is modeled in ANSYS HFSS with wave ports at each end — wave ports are used instead of lumped ports because they support full modal solutions, needed to extract *Zₒ*, *εₑբբ*, *β*, and *α* directly from the simulated propagating mode, rather than only a local impedance value. Port 1 (source side) is set to 50 Ω and Port 2 (load side) to 90 Ω. A frequency sweep over [1, 3] GHz with a step under 0.1 GHz yields S₁₁ and S₂₁, which are compared directly against the MATLAB-predicted |Γ(f)|.
+
+Quarter-wave impedance transsformer design in ANSYS HFSS
+
+![Quarter-wave transformer design](QWT_tasarim.png)
+
+## Results
 
 | Quantity | MATLAB | HFSS Simulation |
 |---|---|---|
