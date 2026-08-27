@@ -23,7 +23,7 @@ The project was carried out in two stages.
 
 ## Design Specifications
 
-Microstrip mpdel
+Microstrip model
 ![Micostrip model](mikroserit.png)
 
 | Parameter | Value |
@@ -45,7 +45,7 @@ A quarter-wave transformer matches a real load impedance *Zₗ* to a real source
 Zₒ = √(Zₛ · Zₗ)
 ```
 
-and physical length equal to one quarter of the guided wavelength at the design frequency, *l = λₑբբ / 4*. At the design frequency this length rotates the load impedance around the Smith chart by 90°, presenting a purely resistive input impedance equal to *Zₒ* and, in turn, equal to *Zₛ* — eliminating reflections at that single frequency.
+and physical length equal to one quarter of the guided wavelength at the design frequency. At the design frequency this length rotates the load impedance around the Smith chart by 90°, presenting a purely resistive input impedance equal to *Zₒ* and, in turn, equal to *Zₛ* (eliminating reflections at that single frequency) and found as 67.0820393250 Ω.
 
 **Line width**: For a microstrip line on a substrate of relative permittivity *εᵣ* and height *h*, the width-to-height ratio *W/h* is found from Pozar's synthesis equations, which take one of two forms depending on whether the resulting ratio is below or above 2:
 
@@ -63,9 +63,9 @@ A = (Zₒ/60)·√((εᵣ + 1)/2) + ((εᵣ − 1)/(εᵣ + 1))·(0.23 + 0.11/ε
 B = 377π / (2·Zₒ·√εᵣ)
 ```
 
-Both cases are evaluated numerically and the applicable one (based on the resulting *W/h*) is selected to obtain *W = (W/h)·h*.
+Both cases are evaluated numerically and the applicable one (based on the resulting *W/h*) is selected to obtain *W = (W/h)·h* and W was found as 1.0915449469 mm.
 
-**Effective dielectric constant and phase velocity**: Because the field is partly in the dielectric and partly in air above the strip, an effective permittivity is used instead of *εᵣ*:
+**Effective dielectric constant and phase velocity**: Because the field is partly in the dielectric and partly in air above the strip, an effective permittivity is used instead of *εᵣ* and found as 1.9539809376.
 
 ```
 εₑբբ = (εᵣ + 1)/2 + (εᵣ − 1) / (2·√(1 + 12h/W))
