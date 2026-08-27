@@ -74,11 +74,11 @@ Both cases are evaluated numerically and the applicable one (based on the result
 The phase velocity, effective wavelength, and physical line length follow as:
 
 ```
-vₚ = c / √εₑբբ
+vₚ = c / √εₑբբ = 2.1461550444x10⁸ m/s
 
-λₑբբ = c / (f·√εₑբբ)
+λₑբբ = c / (f·√εₑբբ) = 107.3077522182 mm
 
-l = λₑբբ / 4
+l = λₑբբ / 4 = 26.8269380545 mm
 ```
 
 **Propagation constant**: The complex propagation constant *γ = α + jβ* is obtained from the per-unit-length distributed parameters:
@@ -114,9 +114,9 @@ Microstrip quarter-wave impedance transformer schematic view
 ![2D schematic view](2B_ilteim_hatti_semasi.png)
 
 ```
-Z_in(f) = Zₒ · (Zₗ + Zₒ·tanh(γl)) / (Zₒ + Zₗ·tanh(γl))
+Zᵢₙ(f) = Zₒ · (Zₗ + Zₒ·tanh(γl)) / (Zₒ + Zₗ·tanh(γl))
 
-Γ(f) = (Z_in(f) − Zₛ) / (Z_in(f) + Zₛ)
+Γ(f) = (Zᵢₙ(f) − Zₛ) / (Zᵢₙ(f) + Zₛ)
 ```
 
 Sweeping *f* over [1, 3] GHz and evaluating |Γ(f)| verifies the narrowband matching behavior expected of a quarter-wave transformer: |Γ| falls to (near) zero at 2 GHz and rises away from it.
@@ -150,7 +150,7 @@ Quarter-wave impedance transsformer design in ANSYS HFSS
 | Series inductance (L) | 3.1256846751×10⁻⁷ H/m | — |
 | Shunt conductance (G) | 0 S/m | — |
 | Shunt capacitance (C) | 6.9459659446×10⁻¹¹ F/m | — |
-| \|Γ\| @ 2 GHz | ≪ 0.1 (theoretical minimum) | \|S₁₁\| ≈ −56.04 dB @ 1.985 GHz |
+| \|Γ\| (\|S₁₁\|) @ 2 GHz | ≪ 0.1 (theoretical minimum) | \|S₁₁\| ≈ −56.04 dB @ 1.985 GHz |
 | \|S₂₁\| @ ~2 GHz | not modeled analytically | −0.0064 dB @ 1.98 GHz |
 | Band where \|Γ\| < 0.1 (i.e., S₁₁ < −20 dB) | ~[1.65, 2.35] GHz | comparable band (see comparison plot) |
 
